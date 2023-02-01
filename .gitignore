@@ -2,3 +2,5 @@ datos_descargados
 target
 Cargo.lock
 clima_arg.csv
+__pycache__
+.vscode
