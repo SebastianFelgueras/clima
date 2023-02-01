@@ -1,0 +1,1 @@
+Despues lo escribo bien esto pero no hace falta el venv, solo lo necesito yo para levantar el servidor
