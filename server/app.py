@@ -35,7 +35,6 @@ def procesar_archivo(contenido: str,hoy: date):
         l[0] = float(hoy.day)
         l.insert(0,float(hoy.month))
         data.append(l)
-    print(data)
     data = np.array(data).flatten().reshape(1,-1)
     return data
 
@@ -68,6 +67,6 @@ def predecir():
     data = procesar_archivo(contenido,hoy)
     if data is None:
         return f"Hubo un problema al parsear los datos del archivo descargado del SMN. Este fue el contenido: {contenido}"
-    print(len(data))
     t = model.predecir(data)
-    return f"Predicciones para el {hoy + timedelta(days=1)}<br/>Temperatura mínima: {t[0][0]}<br/>Temperatura máxima: {t[0][1]}"
+    fecha_predicha = hoy + timedelta(days=1)
+    return f"Predicciones para el {fecha_predicha.day}-{fecha_predicha.month}-{fecha_predicha.year}<br/>Temperatura mínima: {t[0][1]}<br/>Temperatura máxima: {t[0][0]}"
