@@ -66,5 +66,11 @@ class ModeloSKL:
     def exportar_modelo(self,ruta="server/modelo.mod"):
         with open(ruta,"wb") as f:
             pickle.dump(self,f)
+    
+    def usar_metrica(self,metrica,**kwargs):
+        predicciontrain = self.predecir(self.x_train)
+        predicciontest = self.predecir(self.x_test)
+        return {"train":metrica(self.y_train,predicciontrain,**kwargs),"test":metrica(self.y_test,predicciontest,**kwargs)}
+
 
 
