@@ -1,23 +1,19 @@
 import requests
 from multiprocessing.pool import ThreadPool
+import pandas
+import datetime
+
+primer_dato = datetime.date(2022,12,27)# datetime.date(2017,11,26) Fecha de primera medicion
+hoy = datetime.date.today()
+
+fechas = pandas.date_range(primer_dato,hoy-datetime.timedelta(days=1),freq='d').to_list()
+
 global base_guardado 
 base_guardado = "datos_descargados"
 global base 
 base = "https://ssl.smn.gob.ar/dpd/descarga_opendata.php?file=observaciones/"
 global nombres 
-nombres = []
-for anio in [2017,2018,2019,2020,2021,2022]:
-    for mes in range(1,13):
-        for dia in range(1,31):
-            if dia > 28 and mes == 2:
-                continue
-            elif mes in [4,6,9,11] and dia == 31:
-                continue
-            elif anio == 2017 and mes == 11 and dia <=25: #este es el último día sin datos
-                continue
-            elif anio == 2017 and mes < 11:
-                continue
-            nombres.append(f"datohorario{anio}{mes:02d}{dia:02d}.txt")
+nombres = [f"datohorario{fecha.year}{fecha.month:02d}{fecha.day:02d}.txt" for fecha in fechas]
 
 def download_url(file_name):
 
@@ -30,7 +26,7 @@ def download_url(file_name):
                 f.write(data)
     return url
  
- 
+print(max(fechas))
 
 # Run 8 multiple threads. Each call will take the next element in urls list
 results = ThreadPool(8).imap_unordered(download_url, nombres)
