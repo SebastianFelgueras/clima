@@ -3,7 +3,7 @@ from multiprocessing.pool import ThreadPool
 import pandas
 import datetime
 
-primer_dato = datetime.date(2022,12,27)# datetime.date(2017,11,26) Fecha de primera medicion
+primer_dato = datetime.date(2022,12,27)# datetime.date(2017,11,27) Fecha de primera medicion
 hoy = datetime.date.today()
 
 fechas = pandas.date_range(primer_dato,hoy-datetime.timedelta(days=1),freq='d').to_list()
